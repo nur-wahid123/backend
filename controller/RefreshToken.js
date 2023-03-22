@@ -1,7 +1,9 @@
-import users, { admin } from "../model/UserModel.js";
-import jwt from 'jsonwebtoken'
+// import users, { admin } from "../model/UserModel.js";
+const {users,admin} = require('./../model/UserModel.js')
+// import jwt from 'jsonwebtoken'
+const jwt = require('jsonwebtoken');
 
-export const refreshToken = async (req, res) => {
+const refreshToken = async (req, res) => {
     try {
         const resfreToken = req.cookies.refreshToken
         if(!resfreToken) return res.sendStatus(401)
@@ -25,7 +27,7 @@ export const refreshToken = async (req, res) => {
         console.log(error)
     }
 }
-export const refreshTokenAdmin = async (req, res) => {
+const refreshTokenAdmin = async (req, res) => {
     try {
         const resfreToken = req.cookies.refreshToken
         if(!resfreToken) return res.sendStatus(401)
@@ -50,3 +52,5 @@ export const refreshTokenAdmin = async (req, res) => {
         console.log(error)
     }
 }
+
+module.exports = {refreshToken,refreshTokenAdmin}

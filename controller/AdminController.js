@@ -1,13 +1,20 @@
-import users, { dataSiswa, admin, info, mapel, template } from "../model/UserModel.js";
-import bcrypt, { hash } from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { Sequelize } from "sequelize";
-import xlsx from 'xlsx'
-import fs from 'fs'
-import path from 'path'
+// import users, { dataSiswa, admin, info, mapel, template } from "../model/UserModel.js";
+const {users,  dataSiswa, admin, info, mapel, template } = require('../model/UserModel.js')
+// import bcrypt, { hash } from 'bcrypt'
+const bcrypt = require('bcrypt')
+// import jwt from 'jsonwebtoken'
+const jwt = require('jsonwebtoken')
+// import { Sequelize } from "sequelize";
+const { Sequelize } = require('sequelize')
+// import xlsx from 'xlsx'
+const xlsx = require('xlsx')
+// import fs from 'fs'
+const fs = require('fs')
+// import path from 'path'
+const path = require('path')
 
 
-export const LoginAdmin = async (req, res) => {
+const LoginAdmin = async (req, res) => {
     try {
         const user = await admin.findAll({
             where: {
@@ -42,12 +49,12 @@ export const LoginAdmin = async (req, res) => {
 
 }
 
-export const ambilData = async (req, res) => {
+const ambilData = async (req, res) => {
     const siswao = await dataSiswa.findAll()
     return res.json(siswao)
 }
 
-export const LogoutAdmin = async (req, res) => {
+const LogoutAdmin = async (req, res) => {
     const resfreToken = req.cookies.refreshToken
     if (!resfreToken) return res.sendStatus(204)
     const user = await admin.findAll({
@@ -66,7 +73,7 @@ export const LogoutAdmin = async (req, res) => {
     return res.sendStatus(200)
 }
 
-export const Register = async (req, res) => {
+const Register = async (req, res) => {
     try {
         const { name, email, password, confPassword } = req.body
         if (password !== confPassword) return res.status(400).json({ msg: "Password dan confirm password tidak cocok" })
@@ -87,7 +94,7 @@ export const Register = async (req, res) => {
     }
 }
 
-export const hapusSiswa = async (req, res) => {
+const hapusSiswa = async (req, res) => {
     try {
 
         const a = await dataSiswa.findAll({
@@ -111,7 +118,7 @@ export const hapusSiswa = async (req, res) => {
     }
 }
 
-export const hapusPilihan = async (req, res) => {
+const hapusPilihan = async (req, res) => {
     try {
         const a = await dataSiswa.findAll({
             where: {
@@ -133,7 +140,7 @@ export const hapusPilihan = async (req, res) => {
     }
 }
 
-export const cariSiswa = async (req, res) => {
+const cariSiswa = async (req, res) => {
     try {
         let b = req.body.nis
         b = b.toUpperCase()
@@ -152,12 +159,12 @@ export const cariSiswa = async (req, res) => {
     }
 }
 
-export const mapelo = async (req, res) => {
+const mapelo = async (req, res) => {
     const a = await mapel.findAll()
     return res.json(a)
 }
 
-export const download = async (req, res) => {
+const download = async (req, res) => {
     const currentDirectory = process.cwd();
 
     // Define the path to the output file
@@ -193,7 +200,7 @@ export const download = async (req, res) => {
     }
 }
 
-export const updateMapel = async (req, res) => {
+const updateMapel = async (req, res) => {
     try {
         await mapel.update(req.body, {
             where: {
@@ -206,7 +213,7 @@ export const updateMapel = async (req, res) => {
     }
 }
 
-export const hapusMapel = async (req, res) => {
+const hapusMapel = async (req, res) => {
     await mapel.destroy({
         where: {
             id: req.body.id
@@ -215,7 +222,7 @@ export const hapusMapel = async (req, res) => {
     return res.json("Kelompok Mapel " + req.body.kelompok + " Berhasil dihapus")
 }
 
-export const tambahMapel = async (req, res) => {
+const tambahMapel = async (req, res) => {
     const a = await mapel.findAll({
         attributes:['kode']
     })
@@ -229,7 +236,7 @@ export const tambahMapel = async (req, res) => {
     return res.json("Pembuatan Kelompok Mapel Baru berhasil")
 }
 
-export const siswa = async (req, res) => {
+const siswa = async (req, res) => {
     if(req.file == null) return res.json(1)
     let b = req.file.originalname
     b = b.split('.')
@@ -272,7 +279,7 @@ export const siswa = async (req, res) => {
     }
 }
 
-export const siswa2 = async (req, res) => {
+const siswa2 = async (req, res) => {
     try {
         const pw = req.body.nisn.toString()
         const salt = await bcrypt.genSalt()
@@ -299,7 +306,7 @@ export const siswa2 = async (req, res) => {
     }
 }
 
-export const downloadTemplate = async (req, res) => {
+const downloadTemplate = async (req, res) => {
     const currentDirectory = process.cwd();
 
     // Define the path to the output file
@@ -338,7 +345,7 @@ export const downloadTemplate = async (req, res) => {
     }
 }
 
-export const atur = async (req, res) => {
+const atur = async (req, res) => {
     console.log(req.body);
     if (req.body.selectedFile != '') {
         await info.update({
@@ -370,7 +377,9 @@ export const atur = async (req, res) => {
     return res.json(0)
 }
 
-export const forInfo = async (req, res) => {
+const forInfo = async (req, res) => {
     const a = await info.findAll()
     return res.json(a)
 }
+
+module.exports = { LoginAdmin, siswa, mapelo, download, tambahMapel, hapusMapel, updateMapel, Register, ambilData, cariSiswa, LogoutAdmin, hapusSiswa, hapusPilihan, downloadTemplate, siswa2, atur, forInfo } 

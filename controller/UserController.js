@@ -1,9 +1,11 @@
-import users, { dataSiswa, mapel } from "../model/UserModel.js";
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+// import users, { dataSiswa, mapel } from "../model/UserModel.js";
+const {esers, dataSiswa,mapel} = require('./../model/UserModel.js')
+// import bcrypt from 'bcrypt'
+const bcrypt = require('bcrypt');
+const jwt =require('jsonwebtoken')
 
 
-export const getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
     try {
         const user = await dataSiswa.findAll({
             where: {
@@ -16,7 +18,7 @@ export const getUsers = async (req, res) => {
     }
 }
 
-export const Login = async (req, res) => {
+const Login = async (req, res) => {
     try {
         const user = await users.findAll({
             where: {
@@ -49,7 +51,7 @@ export const Login = async (req, res) => {
     }
 }
 
-export const Logout = async (req, res) => {
+const Logout = async (req, res) => {
     const resfreToken = req.cookies.refreshToken
     if (!resfreToken) return res.sendStatus(204)
     const user = await users.findAll({
@@ -68,7 +70,7 @@ export const Logout = async (req, res) => {
     return res.sendStatus(200)
 }
 
-export const Submit = async (req, res) => {
+const Submit = async (req, res) => {
     await dataSiswa.update({
         pilihan: req.body.pilihan
     }, {
@@ -79,7 +81,7 @@ export const Submit = async (req, res) => {
     return res.json({msg:"Data Berhasil di update"})
 }
 
-export const sisa = async (req, res) => {
+const sisa = async (req, res) => {
     const a = await dataSiswa.count({
         where: {
             pilihan: req.body.kode
@@ -87,4 +89,6 @@ export const sisa = async (req, res) => {
     })
     return res.json(a)
 }
+
+module.exports = { Logout, getUsers, Login, Submit, sisa }
 

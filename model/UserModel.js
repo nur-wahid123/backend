@@ -1,9 +1,11 @@
-import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+// import { Sequelize } from "sequelize";
+const {Sequelize} = require('sequelize')
+// import db from "../config/Database.js";
+const db = require('../config/Database.js');
 
 const {DataTypes} = Sequelize
 
-export const dataSiswa = db.define('daat',{
+const dataSiswa = db.define('daat',{
     urut:{
         type : DataTypes.STRING,
         primaryKey:true,
@@ -39,7 +41,7 @@ export const dataSiswa = db.define('daat',{
     initialAutoIncrement:'urut'
 })
 
-export const template = db.define('daat',{
+const template = db.define('daat',{
     urut:{
         type : DataTypes.STRING,
         allowNull:false,
@@ -70,7 +72,7 @@ export const template = db.define('daat',{
     initialAutoIncrement:'urut'
 })
 
-export const admin = db.define('admin',{
+const admin = db.define('admin',{
     name:{
         type : DataTypes.STRING
     },
@@ -88,7 +90,7 @@ export const admin = db.define('admin',{
     timestamps:false
 })
 
-export const mapel = db.define('mapel',{
+const mapel = db.define('mapel',{
     kelompok:{
         type : DataTypes.STRING
     },
@@ -124,7 +126,7 @@ export const mapel = db.define('mapel',{
     timestamps:false
 })
 
-export const info = db.define('info',{
+const info = db.define('info',{
     infoName:{
         type : DataTypes.STRING
     },
@@ -155,4 +157,4 @@ const users = db.define('user',{
     tableName:'users'
 })
 
-export default users
+module.exports = {users,  dataSiswa, admin, info, mapel, template }
