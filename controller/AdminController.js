@@ -1,7 +1,7 @@
 // import users, { dataSiswa, admin, info, mapel, template } from "../model/UserModel.js";
 const {users,  dataSiswa, admin, info, mapel, template } = require('../model/UserModel.js')
 // import bcrypt, { hash } from 'bcrypt'
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 // import jwt from 'jsonwebtoken'
 const jwt = require('jsonwebtoken')
 // import { Sequelize } from "sequelize";

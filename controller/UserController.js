@@ -1,7 +1,7 @@
 // import users, { dataSiswa, mapel } from "../model/UserModel.js";
 const {esers, dataSiswa,mapel} = require('./../model/UserModel.js')
 // import bcrypt from 'bcrypt'
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt =require('jsonwebtoken')
 
 
