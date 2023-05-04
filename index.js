@@ -23,6 +23,11 @@ try{
     console.error(error)
 }
 app.use(cors())
+
+app.use(cors({
+    origin: 'https://smangat.pilihmapel.site',
+    credentials: true
+  }));
 app.use(cookieParser())
 app.use(express.json())
 app.use(router)

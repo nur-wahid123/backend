@@ -54,10 +54,6 @@ router.post('/tambahMapel', VerifyTokenAdmin, tambahMapel)
 router.post('/mapel', mapelo)
 router.get('/mapel', mapelo)
 
-router.get('/', (req,res)=>{
-  return res.json("Maaf Bang Gabole Kesini")
-})
-
 //end for admin
 
 router.post('/cariDataSiswa', VerifyToken, getUsers)

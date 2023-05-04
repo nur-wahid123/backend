@@ -91,3 +91,6 @@ Content-Type: application/json
 }
 ###
 POST http://localhost:5000/sisa
+
+###
+GET http://localhost:5000/mapel
